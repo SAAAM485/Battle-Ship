@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+    </head>
+
+    <body>
+        <div class="head"></div>
+        <div class="mainContainer">
+            <div class="msg"></div>
+            <div class="boards">
+                <div class="p1"></div>
+                <div class="p2"></div>
+            </div>
+            <div class="btns">
+                <button id="random">Random Place</button>
+                <button id="restart">Restart</button>
+            </div>
+        </div>
+        <dialog>
+            <h1>Please Enter Players' Name!</h1>
+            <form method="dialog">
+                <label for="player1">Player 1</label>
+                <input
+                    type="text"
+                    id="player1"
+                    name="player1"
+                    required
+                    autofocus
+                />
+                <label for="player2">Player 2</label>
+                <input type="checkbox" id="player2" name="player2" />
+                <input type="text" id="player2" name="player2" />
+                <div class="btns">
+                    <button type="submit" id="play_btn">Play</button>
+                    <button type="button" id="cancel_btn">Cancel</button>
+                </div>
+            </form>
+        </dialog>
+
+        <footer>...BATTLESHIP...</footer>
+    </body>
+</html>
