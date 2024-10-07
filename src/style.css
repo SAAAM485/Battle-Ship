@@ -1,114 +1,156 @@
 body {
-  margin: 0;
-  border: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 7s ease infinite;
+    margin: 0;
+    border: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 7s ease infinite;
 }
 
 @keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 3rem;
-  background-color: #23d5aba4;
-  padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
+    background-color: #23d5aba4;
+    padding-bottom: 2rem;
 }
 
 .sidebar button,
 input {
-  appearance: none;
-  display: inline-block;
-  border: none;
-  border-radius: 0;
-  font-size: 1.3rem;
-  padding: 0.1rem 0.1rem;
-  border: 1px solid transparent;
+    appearance: none;
+    display: inline-block;
+    border: none;
+    border-radius: 0;
+    font-size: 1.3rem;
+    padding: 0.1rem 0.1rem;
+    border: 1px solid transparent;
 }
 
 .sidebar button {
-  background-color: #ee7752;
-  text-align: center;
-  width: max-content;
-  margin-left: -0.2rem;
+    background-color: #ee7752;
+    text-align: center;
+    width: max-content;
+    margin-left: -0.2rem;
 }
 
 .sidebar button:hover {
-  color: white;
-  background-color: #e99e87;
+    color: white;
+    background-color: #e99e87;
 }
 
 button:active {
-  background-color: #e2dad6;
-  border: 0.1rem solid #6482ad;
-  color: #6482ad;
-  transform: translateY(0.02rem);
+    background-color: #e2dad6;
+    border: 0.1rem solid #6482ad;
+    color: #6482ad;
+    transform: translateY(0.02rem);
 }
 
 footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ee7652d8;
-  height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ee7652d8;
+    height: 10vh;
 }
 
 button {
-  border: #1f2937 0.1rem solid;
-  border-radius: 2rem;
-  background-color: rgb(247, 252, 255);
-  color: black;
-  align-self: center;
+    border: #1f2937 0.1rem solid;
+    border-radius: 2rem;
+    background-color: rgb(247, 252, 255);
+    color: black;
+    align-self: center;
 }
 
 button:hover {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 .mainContainer {
-  flex-grow: 1;
-  margin: 0 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url("./media/bagel.png");
+    flex-grow: 1;
+    margin: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./media/bagel.png");
 }
 
 .mainContainer div {
-  font-size: 3rem;
-  font-weight: 500;
-  background-color: #e2dad6b6;
-  padding: 2rem;
-  border-radius: 5rem;
-  margin-bottom: 1rem;
+    font-size: 3rem;
+    font-weight: 500;
+    background-color: #e2dad6b6;
+    padding: 2rem;
+    border-radius: 5rem;
+    margin-bottom: 1rem;
+}
+
+.boards {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.p1,
+.p2 {
+    display: grid;
+    grid-template-columns: repeat(10, 2.5rem);
+    grid-template-rows: repeat(10, 2.5rem);
+}
+
+.p1 button,
+.p2 button {
+    height: 2.43rem;
+    width: 2.43rem;
+    border: none;
+    border-radius: 0;
+}
+
+.ship {
+    background-color: #1f2937e5;
+}
+
+.missed {
+    background-color: #e2dad6c7;
+}
+
+.missed::after {
+    content: "X";
+}
+
+.hit {
+    color: #e2dad6;
+    background-color: #e99e87;
+}
+
+.hit::after {
+    content: "O";
 }

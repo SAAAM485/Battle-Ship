@@ -52,14 +52,14 @@ describe("Player tests", () => {
     const player1 = new Player();
     const player2 = new Player();
     test("Player can attack opponent", () => {
-        player2.gameboard.placeShip(0, 0, 3, true);
-        player1.attack(player2, 0, 0);
-        expect(player2.gameboard.board[0][0].beenHit).toBe(1);
+        player2.gameboard.placeShip(0, 0, 3, false);
+        player1.attack(player2, 0, 2);
+        expect(player2.gameboard.board[0][1].beenHit).toBe(1);
     });
     const computerPlayer = new Player(true);
     test("Computer player can attack opponent", () => {
         player1.gameboard.placeShip(0, 0, 3, true);
         computerPlayer.attack(player1, 0, 0);
-        expect(player1.gameboard.board[0][0].beenHit).toBe(1);
+        expect(player1.gameboard.board[2][0].beenHit).toBe(1);
     });
 });

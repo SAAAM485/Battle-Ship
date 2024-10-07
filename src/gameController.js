@@ -4,17 +4,17 @@ export default function GameController(player1, com) {
     let tempPlayer;
     const getActivePlayer = () => activePlayer;
 
-    player1.gameboard.placeShips(0, 0, 5, true);
-    player1.gameboard.placeShips(2, 2, 4, true);
-    player1.gameboard.placeShips(5, 3, 3, false);
-    player1.gameboard.placeShips(6, 6, 3, true);
-    player1.gameboard.placeShips(4, 3, 2, false);
+    player1.gameboard.placeShip(0, 0, 5, true);
+    player1.gameboard.placeShip(2, 2, 4, true);
+    player1.gameboard.placeShip(5, 5, 3, false);
+    player1.gameboard.placeShip(6, 6, 3, true);
+    player1.gameboard.placeShip(7, 3, 2, false);
 
-    com.gameboard.placeShips(0, 0, 5, true);
-    com.gameboard.placeShips(2, 2, 4, true);
-    com.gameboard.placeShips(5, 3, 3, false);
-    com.gameboard.placeShips(6, 6, 3, true);
-    com.gameboard.placeShips(4, 3, 2, false);
+    com.gameboard.placeShip(0, 0, 5, true);
+    com.gameboard.placeShip(2, 2, 4, true);
+    com.gameboard.placeShip(5, 5, 3, false);
+    com.gameboard.placeShip(6, 6, 3, true);
+    com.gameboard.placeShip(7, 3, 2, false);
 
     const switchPlayerTurn = () => {
         tempPlayer = activePlayer;
@@ -26,5 +26,17 @@ export default function GameController(player1, com) {
         return nextPlayer.gameboard.allShipsSunk();
     };
 
-    return { getActivePlayer, switchPlayerTurn, winCondition };
+    const playRound = (x, y) => {
+        let message = `${activePlayer.name} dropped a bomb to ${nextPlayer.name}'s board...`;
+        if (!activePlayer.checkAttack(nextPlayer, x, y)) {
+            message = "This Coordinate has been bombed!";
+        } else if (winCondition()) {
+            message = `${activePlayer.name} Wins!`;
+        } else {
+            switchPlayerTurn();
+        }
+        return message;
+    };
+
+    return { getActivePlayer, winCondition, playRound };
 }

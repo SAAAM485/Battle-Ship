@@ -8,9 +8,9 @@ export default class Gameboard {
         this.ships = [];
     }
 
-    placeShip(x, y, length, isHorizontal = true) {
+    placeShip(x, y, length, isVertical = true) {
         const ship = new Ship(length);
-        if (isHorizontal) {
+        if (isVertical) {
             if (x + length > 9) {
                 throw new Error("Out of the board");
             }
@@ -23,17 +23,17 @@ export default class Gameboard {
                 this.board[x + i][y] = ship;
             }
         } else {
-            if (y - length < 0) {
+            if (y + length > 9) {
                 throw new Error("Out of the board");
             }
 
-            for (let i = length - 1; i >= 0; i--) {
-                if (this.board[x][y - i] !== null) {
+            for (let i = 0; i < length; i++) {
+                if (this.board[x][y + i] !== null) {
                     throw new Error("Position already occupied");
                 }
             }
-            for (let i = length - 1; i >= 0; i--) {
-                this.board[x][y - i] = ship;
+            for (let i = 0; i < length; i++) {
+                this.board[x][y + i] = ship;
             }
         }
         this.ships.push(ship);

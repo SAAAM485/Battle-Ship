@@ -1,7 +1,8 @@
 import Gameboard from "./gameboard";
 
 export default class Player {
-    constructor(isComputer = false) {
+    constructor(name, isComputer = false) {
+        this.name = name;
         this.gameboard = new Gameboard();
         this.computer = isComputer;
     }
@@ -10,18 +11,19 @@ export default class Player {
         return opponent.gameboard.receiveAttack(x, y);
     }
 
-    switchTurn(opponent, x, y) {
+    checkAttack(opponent, x, y) {
         if (
-            opponent.gameboard.hitAttacks.includes(
+            opponent.gameboard.hitAttacks.some(
                 (combo) => combo[0] === x && combo[1] === y
             ) ||
-            opponent.gameboard.missedAttacks.includes(
+            opponent.gameboard.missedAttacks.some(
                 (combo) => combo[0] === x && combo[1] === y
             )
         ) {
-            throw new Error("Already hit this coordinate before");
+            return false;
         } else {
             this.attack(opponent, x, y);
+            return true;
         }
     }
 }
