@@ -13,6 +13,10 @@ function ScreenController() {
     const messageDiv2 = document.querySelector(".msg2");
     const player1Board = player1.gameboard;
     const player2Board = player2.gameboard;
+    const randomPlaceBtn = document.querySelector("#random");
+
+    player1Board.placeShipRandom();
+    player2Board.placeShipRandom();
 
     function updateBoard() {
         const activePlayer = game.getActivePlayer();
@@ -110,11 +114,9 @@ function ScreenController() {
     }
 
     function comAutoMoves() {
-        if (player1.gameboard.lastHit) {
+        if (player1Board.lastHit) {
             let [x, y] =
-                player1.gameboard.hitAttacks[
-                    player1.gameboard.hitAttacks.length - 1
-                ];
+                player1Board.hitAttacks[player1Board.hitAttacks.length - 1];
             let newPos = player2.getRandomDirection(player1, x, y);
             console.log("newPos:", newPos);
             if (newPos) {
@@ -147,6 +149,11 @@ function ScreenController() {
 
     player1BoardDiv.addEventListener("click", boardClickHandler);
     player2BoardDiv.addEventListener("click", boardClickHandler);
+    randomPlaceBtn.addEventListener("click", () => {
+        player1Board.removeAllShip();
+        player1Board.placeShipRandom();
+        updateBoard();
+    });
 
     updateBoard();
 }

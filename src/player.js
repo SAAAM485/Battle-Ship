@@ -66,27 +66,3 @@ export default class Player {
         return newPos;
     }
 }
-
-// const validPos = [];
-// const boardCopy = opponent.gameboard.board.map((subArray) =>
-//     subArray.slice()
-// );
-
-// boardCopy.forEach((subArray, index) => {
-//     subArray.forEach((coord, i) => {
-//         if (
-//             !opponent.gameboard.hitAttacks.some(
-//                 (combo) => combo[0] === index && combo[1] === i
-//             ) &&
-//             !opponent.gameboard.missedAttacks.some(
-//                 (combo) => combo[0] === index && combo[1] === i
-//             )
-//         ) {
-//             validPos.push([index, i]);
-//         }
-//     });
-// });
-
-// const randomIndex = Math.floor(Math.random() * validPos.length);
-// console.log(validPos);
-// return validPos[randomIndex];

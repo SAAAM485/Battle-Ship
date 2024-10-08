@@ -5,18 +5,6 @@ export default function GameController(player1, com) {
     const getActivePlayer = () => activePlayer;
     const getOpponent = () => nextPlayer;
 
-    player1.gameboard.placeShip(0, 0, 5, true);
-    player1.gameboard.placeShip(2, 2, 4, true);
-    player1.gameboard.placeShip(5, 5, 3, false);
-    player1.gameboard.placeShip(6, 6, 3, true);
-    player1.gameboard.placeShip(7, 3, 2, false);
-
-    com.gameboard.placeShip(0, 0, 5, true);
-    com.gameboard.placeShip(2, 2, 4, true);
-    com.gameboard.placeShip(5, 5, 3, false);
-    com.gameboard.placeShip(6, 6, 3, true);
-    com.gameboard.placeShip(7, 3, 2, false);
-
     const switchPlayerTurn = () => {
         tempPlayer = activePlayer;
         activePlayer = nextPlayer;
