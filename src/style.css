@@ -147,10 +147,15 @@ button:hover {
 }
 
 .hit {
-    color: #e2dad6;
+    color: #fafafa;
     background-color: #e99e87;
 }
 
 .hit::after {
     content: "O";
+}
+
+.p1 button:not(:disabled),
+.p2 button:not(:disabled) {
+    background-color: #e2dad6c7;
 }

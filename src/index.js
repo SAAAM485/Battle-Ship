@@ -5,18 +5,19 @@ import Ship from "./ship";
 
 function ScreenController() {
     const player1 = new Player("Player1");
-    const com = new Player("com", true);
-    const game = GameController(player1, com);
+    const player2 = new Player("com", true);
+    const game = GameController(player1, player2);
     const player1BoardDiv = document.querySelector(".p1");
-    const comBoardDiv = document.querySelector(".p2");
-    const messageDiv = document.querySelector(".msg");
+    const player2BoardDiv = document.querySelector(".p2");
+    const messageDiv1 = document.querySelector(".msg1");
+    const messageDiv2 = document.querySelector(".msg2");
     const player1Board = player1.gameboard;
-    const comBoard = com.gameboard;
+    const player2Board = player2.gameboard;
 
     function updateBoard() {
         const activePlayer = game.getActivePlayer();
+        const opponent = game.getOpponent();
 
-        messageDiv.textContent = `It's ${activePlayer.name}'s Turn!`;
         player1BoardDiv.textContent = "";
         player1Board.board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
@@ -54,14 +55,14 @@ function ScreenController() {
             });
         });
 
-        comBoardDiv.textContent = "";
-        comBoard.board.forEach((row, rowIndex) => {
+        player2BoardDiv.textContent = "";
+        player2Board.board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = columnIndex;
-                if (activePlayer.name !== com.name) {
+                if (activePlayer.name !== player2.name) {
                     cellButton.disabled = false;
                 } else {
                     cellButton.disabled = true;
@@ -70,7 +71,7 @@ function ScreenController() {
                     cellButton.classList.add("ship");
                 }
                 if (
-                    comBoard.missedAttacks.some(
+                    player2Board.missedAttacks.some(
                         (combo) =>
                             Number(combo[0]) === rowIndex &&
                             Number(combo[1]) === columnIndex
@@ -78,7 +79,7 @@ function ScreenController() {
                 ) {
                     cellButton.classList.add("missed");
                 } else if (
-                    comBoard.hitAttacks.some(
+                    player2Board.hitAttacks.some(
                         (combo) =>
                             Number(combo[0]) === rowIndex &&
                             Number(combo[1]) === columnIndex
@@ -86,9 +87,50 @@ function ScreenController() {
                 ) {
                     cellButton.classList.add("hit");
                 }
-                comBoardDiv.appendChild(cellButton);
+                player2BoardDiv.appendChild(cellButton);
             });
         });
+
+        if (game.winCondition(opponent)) {
+            const buttons1 = player1BoardDiv.querySelectorAll("button");
+            buttons1.forEach((button) => (button.disabled = true));
+            const buttons2 = player2BoardDiv.querySelectorAll("button");
+            buttons2.forEach((button) => (button.disabled = true));
+        } else {
+            messageDiv1.textContent = `It's ${activePlayer.name}'s Turn!`;
+        }
+
+        if (
+            player2.computer &&
+            activePlayer === player2 &&
+            !game.winCondition(opponent)
+        ) {
+            comAutoMoves();
+        }
+    }
+
+    function comAutoMoves() {
+        if (player1.gameboard.lastHit) {
+            let [x, y] =
+                player1.gameboard.hitAttacks[
+                    player1.gameboard.hitAttacks.length - 1
+                ];
+            let newPos = player2.getRandomDirection(player1, x, y);
+            console.log("newPos:", newPos);
+            if (newPos) {
+                [x, y] = newPos;
+            } else {
+                console.log("adjacent not available");
+                [x, y] = player2.getRandomPos(player1);
+            }
+            messageDiv2.textContent = game.playRound(x, y);
+            updateBoard();
+        } else {
+            let [x, y] = player2.getRandomPos(player1);
+            messageDiv2.textContent = game.playRound(x, y);
+            updateBoard();
+        }
+        return;
     }
 
     function boardClickHandler(e) {
@@ -99,12 +141,12 @@ function ScreenController() {
             return;
         }
 
-        messageDiv.textContent = game.playRound(selectedRow, selectedColumn);
+        messageDiv2.textContent = game.playRound(selectedRow, selectedColumn);
         updateBoard();
     }
 
     player1BoardDiv.addEventListener("click", boardClickHandler);
-    comBoardDiv.addEventListener("click", boardClickHandler);
+    player2BoardDiv.addEventListener("click", boardClickHandler);
 
     updateBoard();
 }

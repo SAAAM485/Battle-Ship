@@ -6,6 +6,7 @@ export default class Gameboard {
         this.missedAttacks = [];
         this.hitAttacks = [];
         this.ships = [];
+        this.lastHit = false;
     }
 
     placeShip(x, y, length, isVertical = true) {
@@ -43,8 +44,10 @@ export default class Gameboard {
         if (this.board[x][y]) {
             this.board[x][y].hit();
             this.hitAttacks.push([x, y]);
+            this.lastHit = true;
         } else {
             this.missedAttacks.push([x, y]);
+            this.lastHit = false;
         }
     }
 

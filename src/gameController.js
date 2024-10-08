@@ -3,6 +3,7 @@ export default function GameController(player1, com) {
     let nextPlayer = com;
     let tempPlayer;
     const getActivePlayer = () => activePlayer;
+    const getOpponent = () => nextPlayer;
 
     player1.gameboard.placeShip(0, 0, 5, true);
     player1.gameboard.placeShip(2, 2, 4, true);
@@ -22,15 +23,19 @@ export default function GameController(player1, com) {
         nextPlayer = tempPlayer;
     };
 
-    const winCondition = () => {
-        return nextPlayer.gameboard.allShipsSunk();
+    const winCondition = (opponent) => {
+        return opponent.gameboard.allShipsSunk();
     };
 
     const playRound = (x, y) => {
         let message = `${activePlayer.name} dropped a bomb to ${nextPlayer.name}'s board...`;
         if (!activePlayer.checkAttack(nextPlayer, x, y)) {
             message = "This Coordinate has been bombed!";
-        } else if (winCondition()) {
+            return message;
+        } else {
+            activePlayer.attack(nextPlayer, x, y);
+        }
+        if (winCondition(nextPlayer)) {
             message = `${activePlayer.name} Wins!`;
         } else {
             switchPlayerTurn();
@@ -38,5 +43,5 @@ export default function GameController(player1, com) {
         return message;
     };
 
-    return { getActivePlayer, winCondition, playRound };
+    return { getActivePlayer, getOpponent, winCondition, playRound };
 }
