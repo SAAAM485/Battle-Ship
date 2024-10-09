@@ -1,8 +1,10 @@
 export default class Ship {
-    constructor(length) {
+    constructor(length, isVertical) {
         this.length = length;
         this.beenHit = 0;
         this.sunk = false;
+        this.coord = [];
+        this.isVertical = isVertical;
     }
 
     hit() {

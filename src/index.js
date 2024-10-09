@@ -17,6 +17,7 @@ function ScreenController() {
 
     player1Board.placeShipRandom();
     player2Board.placeShipRandom();
+    player1Board.removeShip(2, 3);
 
     function updateBoard() {
         const activePlayer = game.getActivePlayer();

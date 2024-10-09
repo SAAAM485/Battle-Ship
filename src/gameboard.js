@@ -51,15 +51,19 @@ export default class Gameboard {
             return;
         }
 
-        const ship = new Ship(length);
+        const ship = new Ship(length, isVertical);
         if (isVertical) {
             for (let i = 0; i < length; i++) {
                 this.board[x + i][y] = ship;
             }
+            ship.coord.push(x);
+            ship.coord.push(y);
         } else {
             for (let i = 0; i < length; i++) {
                 this.board[x][y + i] = ship;
             }
+            ship.coord.push(x);
+            ship.coord.push(y);
         }
         this.ships.push(ship);
     }
@@ -73,6 +77,34 @@ export default class Gameboard {
             }
         }
         this.ships = [];
+    }
+
+    removeShip(x, y) {
+        if (!this.board[x][y]) {
+            console.log("didn't remove ship");
+            return false;
+        } else {
+            const ship = this.board[x][y];
+            const shipLength = ship.length;
+            const shipIndex = this.ships.findIndex(
+                (theShip) =>
+                    theShip.coord[0] === ship.coord[0] &&
+                    theShip.coord[1] === ship.coord[1]
+            );
+            const a = ship.coord[0];
+            const b = ship.coord[1];
+            if (ship.isVertical) {
+                for (let i = 0; i < ship.length; i++) {
+                    this.board[a + i][b] = null;
+                }
+            } else {
+                for (let i = 0; i < ship.length; i++) {
+                    this.board[a][b + i] = null;
+                }
+            }
+            this.ships.splice(shipIndex, 1);
+            return shipLength;
+        }
     }
 
     receiveAttack(x, y) {
