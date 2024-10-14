@@ -81,8 +81,7 @@ export default class Gameboard {
 
     removeShip(x, y) {
         if (!this.board[x][y]) {
-            console.log("didn't remove ship");
-            return false;
+            return;
         } else {
             const ship = this.board[x][y];
             const shipLength = ship.length;
@@ -103,8 +102,89 @@ export default class Gameboard {
                 }
             }
             this.ships.splice(shipIndex, 1);
-            return shipLength;
+            this.createGhostShip(shipLength, ship.isVertical);
         }
+    }
+
+    rotateShip(x, y) {
+        if (!this.board[x][y]) {
+            return;
+        } else {
+            const ship = this.board[x][y];
+            const shipLength = ship.length;
+            const newDir = !ship.isVertical;
+            const a = ship.coord[0];
+            const b = ship.coord[1];
+            if (ship.isVertical) {
+                for (let i = 0; i < ship.length; i++) {
+                    this.board[a + i][b] = null;
+                }
+            } else {
+                for (let i = 0; i < ship.length; i++) {
+                    this.board[a][b + i] = null;
+                }
+            }
+            if (this.canPlaceShip(a, b, shipLength, newDir)) {
+                this.placeShip(a, b, shipLength, newDir);
+            } else {
+                if (!newDir) {
+                    for (let i = 0; i < ship.length; i++) {
+                        this.board[a + i][b] = ship;
+                    }
+                } else {
+                    for (let i = 0; i < ship.length; i++) {
+                        this.board[a][b + i] = ship;
+                    }
+                }
+            }
+        }
+    }
+
+    createGhostShip(length, isVertical) {
+        const createContainer = document.createElement("div");
+        if (isVertical) {
+            createContainer.style.gridTemplateRows = `repeat(${length}, 2.5rem)`;
+        } else {
+            createContainer.style.gridTemplateColumns = `repeat(${length}, 2.5rem)`;
+        }
+        createContainer.classList.add("ghostShips");
+        createContainer.dataset.length = length;
+        createContainer.dataset.isVertical = isVertical;
+
+        for (let i = 0; i < length; i++) {
+            const ghostShip = document.createElement("div");
+            ghostShip.classList.add("ghost");
+            createContainer.appendChild(ghostShip);
+        }
+        const moveCursor = (event) => {
+            const y = event.pageY;
+            const x = event.pageX;
+            const scrollLeft =
+                window.scrollX !== undefined
+                    ? window.scrollX
+                    : (
+                          document.documentElement ||
+                          document.body.parentNode ||
+                          document.body
+                      ).scrollLeft;
+            const scrollTop =
+                window.scrollY !== undefined
+                    ? window.scrollY
+                    : (
+                          document.documentElement ||
+                          document.body.parentNode ||
+                          document.body
+                      ).scrollTop;
+            createContainer.style.left = x - scrollLeft + "px";
+            createContainer.style.top = y - scrollTop + "px";
+        };
+        document.body.appendChild(createContainer);
+        document.addEventListener("mousemove", moveCursor);
+    }
+
+    removeGhostShip() {
+        const ghostShip = document.querySelector(".ghostShips");
+        ghostShip.remove();
     }
 
     receiveAttack(x, y) {

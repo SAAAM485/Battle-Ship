@@ -155,7 +155,23 @@ button:hover {
     content: "O";
 }
 
-.p1 button:not(:disabled),
-.p2 button:not(:disabled) {
+.set button:disabled {
     background-color: #e2dad6c7;
+}
+
+.play button:not(:disabled) {
+    background-color: #e2dad6c7;
+}
+
+.ghostShips {
+    display: grid;
+    background-color: #e2dad6b6;
+    position: fixed;
+    pointer-events: none;
+}
+
+.ghost {
+    background-color: #1f2937;
+    height: 2.43rem;
+    width: 2.43rem;
 }
