@@ -182,18 +182,17 @@ function settingBoard() {
 
                 if (cell instanceof Ship) {
                     cellButton.classList.add("ship");
-                    cellButton.addEventListener("click", () => {
-                        player1Board.removeShip(rowIndex, columnIndex);
-                        updateSettingBoard();
-                    });
-                    cellButton.addEventListener("mousedown", (event) => {
+                    cellButton.addEventListener("mousedown", () => {
                         if (event.button == 1) {
                             player1Board.rotateShip(rowIndex, columnIndex);
                             updateSettingBoard();
+                            return;
                         }
+                        player1Board.removeShip(rowIndex, columnIndex);
+                        updateSettingBoard();
                     });
                 } else {
-                    cellButton.addEventListener("click", () => {
+                    cellButton.addEventListener("mouseup", () => {
                         const ghostShip = document.querySelector(".ghostShips");
                         if (ghostShip) {
                             const length = parseInt(ghostShip.dataset.length);
@@ -247,7 +246,7 @@ function settingBoard() {
     randomPlaceBtn.addEventListener("click", () => {
         player1Board.removeAllShip();
         player1Board.placeShipRandom();
-        updateBoard();
+        updateSettingBoard();
     });
     startBtn.addEventListener("click", () => {
         ScreenController(player1, player2);
