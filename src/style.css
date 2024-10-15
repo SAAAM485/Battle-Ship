@@ -34,39 +34,6 @@ body {
     }
 }
 
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 3rem;
-    background-color: #23d5aba4;
-    padding-bottom: 2rem;
-}
-
-.sidebar button,
-input {
-    appearance: none;
-    display: inline-block;
-    border: none;
-    border-radius: 0;
-    font-size: 1.3rem;
-    padding: 0.1rem 0.1rem;
-    border: 1px solid transparent;
-}
-
-.sidebar button {
-    background-color: #ee7752;
-    text-align: center;
-    width: max-content;
-    margin-left: -0.2rem;
-}
-
-.sidebar button:hover {
-    color: white;
-    background-color: #e99e87;
-}
-
 button:active {
     background-color: #e2dad6;
     border: 0.1rem solid #6482ad;
@@ -102,10 +69,12 @@ button:hover {
     justify-content: center;
     align-items: center;
     background-image: url("./media/bagel.png");
+    background-size: 14vh;
+    background-repeat: repeat;
 }
 
 .mainContainer div {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 500;
     background-color: #e2dad6b6;
     padding: 2rem;
@@ -124,6 +93,10 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(10, 2.5rem);
     grid-template-rows: repeat(10, 2.5rem);
+}
+
+.mainContainer div.active {
+    background-color: #e73c7e;
 }
 
 .p1 button,
@@ -163,6 +136,10 @@ button:hover {
     background-color: #e2dad6c7;
 }
 
+.hide {
+    background-color: #e2dad6c7;
+}
+
 .ghostShips {
     display: grid;
     background-color: #e2dad6b6;
@@ -174,4 +151,62 @@ button:hover {
     background-color: #1f2937;
     height: 2.43rem;
     width: 2.43rem;
+}
+
+.btns {
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+}
+
+.btns button {
+    height: 2.5rem;
+    width: 8rem;
+    font-size: 1rem;
+}
+
+fieldset {
+    border: none;
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+}
+
+legend {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.mainContainer fieldset div {
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 0;
+}
+
+label {
+    font-size: 1.2rem;
+    display: block;
+    width: 8rem;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+}
+
+input {
+    appearance: none;
+    height: 0;
+    width: 0;
+    margin: 0;
+}
+
+fieldset div:has(input:checked) {
+    background-color: #ee7752;
 }

@@ -51,11 +51,9 @@ export default class Player {
                 newY >= 0 &&
                 newY <= 9 &&
                 this.checkAttack(opponent, newX, newY);
-            console.log(`Checking direction (${newX}, ${newY}): ${isValid}`);
             return isValid && !(newX === x && newY === y);
         });
 
-        console.log("Valid Directions:", validDirections);
         if (validDirections.length === 0) {
             return false;
         }
